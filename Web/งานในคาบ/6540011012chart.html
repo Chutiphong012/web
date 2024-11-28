@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <title>6540011012 Cart</title>
+  <style>
+    button{
+        font-family: 'Courier New', Courier, monospace;
+        background-color: snow;
+    }
+  </style>
+</head>
+<body>
+    <button onclick="showBar()">Show Bar</button>
+    <button onclick="showLine()">Show Line</button>
+
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    <canvas id="myLine" style="width:100%;max-width:600px"></canvas>
+    
+    <script>
+
+    function showBar() {
+      document.getElementById("myChart").style.display = "block";
+      document.getElementById("myLine").style.display = "none";
+    }
+
+    function showLine() {
+      document.getElementById("myChart").style.display = "none";
+      document.getElementById("myLine").style.display = "block";
+    }
+
+    var xValues = ["IT", "Chemistry", "EBC", "BM", "วทก", "Engineer"];
+    var yValues = [70, 20, 150, 100, 20, 45];
+    var barColors = ["#A3D9F1", "#A7E6B7", "#F7D1D1", "#FFF2A6", "#D6E1F0", "#D3F4D9"];
+
+    new Chart("myChart", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        title: {
+          display: true,
+          text: "Number of students"
+        },
+        scales: {
+            yAxes:[{
+                ticks:{
+                    beginAtZero: true
+        }
+        }],
+        }
+      }
+    });
+    
+     new Chart("myLine", {
+          type: "line",
+          data: {
+            labels: xValues,
+            datasets: [{
+              label: "Number of students",
+              data: yValues,
+              borderColor: "#FF6347",
+              backgroundColor: "rgba(255, 87, 51, 0.2)",
+              fill: false,
+              pointRadius: 6,
+              pointBackgroundColor: barColors
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Students'
+                }
+              },
+              y: {
+                title: {
+                  display: false,
+                  text: 'Number'
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                display: true,
+              },
+            }
+          }
+        });
+      </script>
+    </body>
+</html>

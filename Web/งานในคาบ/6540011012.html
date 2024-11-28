@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>6540011012 Chutiphong</title>
+    </head>
+    <style>
+        body,button{
+            font-family: 'Courier New', Courier, monospace;
+            background-color: snow;
+        }
+        
+    </style>
+   <body>
+    <p id="p">Hello World</p>
+    <h1 id="alert" onmouseover="backgroundcolor()" >PSU</h1>
+    <button onclick="changText()">Click!</button>
+    <button onclick="clearText()">Clear!</button>
+
+    <hr>
+
+    <h2>show the value</h2>
+    <input type="text" name="" id="text01" size="35" onkeydown="showValue()">
+
+    <br><br><br><br><br>
+
+    Form
+    <form action="act.php" onsubmit="return checkText()" method="post">
+        <label for="">Name</label>
+        <input type="text" id="name" size="20">
+        <button>Submit</button>
+    </form>
+
+    <script type="text/javascript">
+
+        function checkText(){
+            var x = document.getElementById("name").value;
+            if (x == ""){
+                alert("Name must be filled out");
+                return false;
+            }
+        }
+
+        function showValue(){
+            console.log(document.getElementById("text01").value);
+        }
+
+            document.getElementById("p").textContent = "Hello world";
+
+        function changText(){
+            document.getElementById("alert").textContent = "IT";
+        }
+
+        function clearText(){
+             document.getElementById("alert").textContent = "Clear!";
+        }
+
+        function backgroundcolor(){
+            document.getElementById("alert").style.background = "green";
+        }
+
+    </script>
+   </body>
+</html>
