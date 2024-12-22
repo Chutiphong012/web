@@ -1,0 +1,36 @@
+.title{
+    color:yellow;
+}
+
+.background {
+    background-image: url('/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    
+}
+
+.background2 {
+    background-image: url('/bg2.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    
+}
+
+  .background3 {
+    background-image: url('/bg3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    
+}
+  
+
+  
