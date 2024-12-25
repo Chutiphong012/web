@@ -3,10 +3,15 @@ import { useState } from "react";
 export default function Analyze() {
   const [result, setResult] = useState(null);
   const [severity, setSeverity] = useState(null);
+  const [symptoms, setSymptoms] = useState({
+    leaves: "",
+    structure: "",
+  });
 
   // ฟังก์ชันจัดการเมื่อกดปุ่ม
   const handleAnalyze = (status) => {
-    setSeverity(null); 
+    setSeverity(null);
+    setSymptoms({ leaves: "", structure: "" });
     if (status === "healthy") {
       setResult("ผลการวิเคราะห์: ไม่พบโรค");
     } else if (status === "disease") {
@@ -14,23 +19,13 @@ export default function Analyze() {
     }
   };
 
-  //คำแนะนำ ค่อยลบ
-  const getAdvice = (level) => {
-    switch (level) {
-      case "ระยะเริ่มต้น":
-        return "คำแนะนำ: ควรตัดแต่งรากและใส่ปุ๋ยบำรุงพืช เพื่อฟื้นฟูสุขภาพ.";
-      case "ระยะกลาง":
-        return "คำแนะนำ: ใช้ยากำจัดเชื้อราที่เหมาะสมและตรวจสอบดินรอบต้น.";
-      case "ระยะรุนแรง":
-        return "คำแนะนำ: จำเป็นต้องขุดลอกดินบริเวณรากและพ่นสารกำจัดเชื้อรา.";
-      default:
-        return "";
-    }
+  const handleSymptomChange = (field, value) => {
+    setSymptoms((prev) => ({ ...prev, [field]: prev[field] === value ? "" : value }));
   };
 
   return (
     <div className="min-h-screen">
-      <h1 className="text-center text-2xl md:text-4xl font-bold py-4 px-4">วิเคราะห์โรค</h1>
+      <h1 className="text-center text-2xl md:text-4xl font-bold py-4 px-4 text-white">วิเคราะห์โรค</h1>
 
       <div className="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-lg">
         {/* ปุ่มเลือกผลการวิเคราะห์ */}
@@ -65,47 +60,81 @@ export default function Analyze() {
         {/* แสดงฟอร์มเลือกความรุนแรงเฉพาะเมื่อพบโรค */}
         {result === "ผลการวิเคราะห์: พบโรค" && (
           <div className="mt-6">
-            <h2 className="text-lg font-bold mb-4">เลือกความรุนแรงของโรค:</h2>
-            <div className="flex space-x-4">
-              <button
-                onClick={() => setSeverity("ระยะเริ่มต้น")}
-                className={`py-2 px-4 rounded-lg font-bold ${
-                  severity === "Lv.1"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 hover:bg-gray-300"
-                }`}
-              >
-                Lv.1
-              </button>
-              <button
-                onClick={() => setSeverity("ระยะกลาง")}
-                className={`py-2 px-4 rounded-lg font-bold ${
-                  severity === "Lv.2"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 hover:bg-gray-300"
-                }`}
-              >
-                Lv.2
-              </button>
-              <button
-                onClick={() => setSeverity("ระยะรุนแรง")}
-                className={`py-2 px-4 rounded-lg font-bold ${
-                  severity === "Lv.3"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 hover:bg-gray-300"
-                }`}
-              >
-                Lv.3
-              </button>
+            <h2 className="text-lg font-bold mb-4">ลักษณะอาการของ</h2>
+
+            {/* ถามอาการเกี่ยวกับใบ */}
+            <div className="mb-4">
+              <h3 className="text-md font-bold mb-2">ใบ</h3>
+              <div className="space-y-2">
+                <div>
+                  <input
+                    type="radio"
+                    name="leaves"
+                    value="ใบเปลี่ยนเป็นสีเหลืองซีด"
+                    checked={symptoms.leaves === "ใบเปลี่ยนเป็นสีเหลืองซีด"}
+                    onChange={(e) => handleSymptomChange("leaves", e.target.value)}
+                  />
+                  <label className="ml-2">ใบเปลี่ยนเป็นสีเหลืองซีด</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="leaves"
+                    value="ใบเริ่มร่วง"
+                    checked={symptoms.leaves === "ใบเริ่มร่วง"}
+                    onChange={(e) => handleSymptomChange("leaves", e.target.value)}
+                  />
+                  <label className="ml-2">ใบเริ่มร่วง</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="leaves"
+                    value="ใบร่วงเยอะหรือร่วงจนหมดต้น"
+                    checked={symptoms.leaves === "ใบร่วงเยอะหรือร่วงจนหมดต้น"}
+                    onChange={(e) => handleSymptomChange("leaves", e.target.value)}
+                  />
+                  <label className="ml-2">ใบร่วงเยอะหรือร่วงจนหมดต้น</label>
+                </div>
+              </div>
             </div>
 
-            {/* แสดงผลความรุนแรงและคำแนะนำ */}
-            {severity && (
-              <div className="mt-4 p-4 bg-blue-100 text-blue-700 rounded-lg">
-                <p className="font-bold">ระดับความรุนแรง: {severity}</p>
-                <p>{getAdvice(severity)}</p>
+            {/* ถามอาการเกี่ยวกับลำต้น กิ่ง ราก */}
+            <div className="mb-4">
+              <h3 className="text-md font-bold mb-2">ลำต้น กิ่ง ราก</h3>
+              <div className="space-y-2">
+                <div>
+                  <input
+                    type="radio"
+                    name="structure"
+                    value="ลำต้น,กิ่ง,รากมีสีเปลือกที่เข้มเป็นจุดฉ่ำน้ำหรือมีรอยแตกของแผลสีน้ำตาล"
+                    checked={symptoms.structure === "ลำต้น,กิ่ง,รากมีสีเปลือกที่เข้มเป็นจุดฉ่ำน้ำหรือมีรอยแตกของแผลสีน้ำตาล"}
+                    onChange={(e) => handleSymptomChange("structure", e.target.value)}
+                  />
+                  <label className="ml-2">ลำต้น กิ่ง รากมีสีเปลือกที่เข้มเป็นจุดฉ่ำน้ำหรือมีรอยแตกของแผลสีน้ำตาล</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="structure"
+                    value="แผลบริเวณลำต้น,กิ่ง,รากมีขนาดใหญ่"
+                    checked={symptoms.structure === "แผลบริเวณลำต้น,กิ่ง,รากมีขนาดใหญ่"}
+                    onChange={(e) => handleSymptomChange("structure", e.target.value)}
+                  />
+                  <label className="ml-2">แผลบริเวณลำต้น กิ่ง รากมีขนาดใหญ่</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="structure"
+                    value="รากเสียหายอย่างหนัก ลำต้นเน่า"
+                    checked={symptoms.structure === "รากเสียหายอย่างหนัก ลำต้นเน่า"}
+                    onChange={(e) => handleSymptomChange("structure", e.target.value)}
+                  />
+                  <label className="ml-2">รากเสียหายอย่างหนัก ลำต้นเน่า</label>
+                </div>
               </div>
-            )}
+            </div>
           </div>
         )}
       </div>

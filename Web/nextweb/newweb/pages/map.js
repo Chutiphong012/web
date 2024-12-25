@@ -3,7 +3,7 @@ export default function Map() {
       <div className="min-h-screen ">
         
 
-        <h1 className="text-center text-2xl md:text-4xl font-bold py-4 px-4">
+        <h1 className="text-center text-2xl md:text-4xl font-bold py-4 px-4 text-white">
         แสดงตำแหน่งโรค
       </h1>
         <div className="bg-white p-5 mx-4 my-10 rounded-2xl shadow-lg">
