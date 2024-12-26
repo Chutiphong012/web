@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Head from "next/head"; // import Head
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -99,85 +100,103 @@ export default function Register() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-5">
-      <h1 className="text-2xl font-bold mb-5">Register</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-        <div>
-          <label className="block font-medium mb-1">Username</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div>
-          <label className="block font-medium mb-1">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div>
-          <label className="block font-medium mb-1">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div>
-          <label className="block font-medium mb-1">Search Location</label>
-          <input
-            ref={searchBoxRef}
-            type="text"
-            placeholder="Search for a location"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div>
-          <label className="block font-medium mb-1">Location</label>
-          <div
-            ref={mapRef}
-            className="w-full h-96 border rounded-md"
-          ></div>
-        </div>
-        <div>
-          <label className="block font-medium mb-1">Latitude</label>
-          <input
-            type="text"
-            name="latitude"
-            value={formData.latitude}
-            readOnly
-            className="w-full px-4 py-2 border rounded-md bg-gray-100"
-          />
-        </div>
-        <div>
-          <label className="block font-medium mb-1">Longitude</label>
-          <input
-            type="text"
-            name="longitude"
-            value={formData.longitude}
-            readOnly
-            className="w-full px-4 py-2 border rounded-md bg-gray-100"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
-        >
-          Register
-        </button>
-      </form>
-    </div>
+    <>
+      <Head>
+        <title>สมัครสมาชิก</title> {/* ตั้งชื่อเพจในแท็บของเบราว์เซอร์ */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+
+      <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <h1 className="text-3xl font-semibold text-center text-gray-700 mb-6">
+          สมัครสมาชิก
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label className="block text-lg font-medium text-gray-600">ชื่อ</label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-lg font-medium text-gray-600">อีเมล</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-lg font-medium text-gray-600">รหัสผ่าน</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-lg font-medium text-gray-600">ค้นหา</label>
+            <input
+              ref={searchBoxRef}
+              type="text"
+              placeholder="ค้นหาสถานที่ใกล้เคียงเพื่อปักตำแหน่งสวน"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-lg font-medium text-gray-600">ปักตำแหน่งสวน</label>
+            <div
+              ref={mapRef}
+              className="w-full h-96 border rounded-md bg-gray-100"
+            ></div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-lg font-medium text-gray-600">ละติจูด</label>
+            <input
+              type="text"
+              name="latitude"
+              value={formData.latitude}
+              readOnly
+              className="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-lg font-medium text-gray-600">ลองจิจูด</label>
+            <input
+              type="text"
+              name="longitude"
+              value={formData.longitude}
+              readOnly
+              className="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100"
+            />
+          </div>
+
+          <div className="text-center">
+            <button
+              type="submit"
+              className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              สมัครสมาชิก
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

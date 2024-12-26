@@ -8,7 +8,7 @@ export default function Navbar() {
         {/* ด้านซ้าย */}
         <div className="flex space-x-4 md:space-x-6">
           {/* โลโก้ */}
-          <Link href="#" className="flex items-center">
+          <Link href="" className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -27,7 +27,7 @@ export default function Navbar() {
             วิเคราะห์โรค
           </Link>
           <Link href="/map" className="text-black hover:text-red-500 text-sm md:text-base">
-            แสดงตำแหน่งโรค
+          แสดงตำแหน่งโรค
           </Link>
           
         </div>

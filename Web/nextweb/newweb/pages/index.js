@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import Head from 'next/head';
 export default function Home() {
   const [province, setProvince] = useState("กรุงเทพมหานคร");
   const [forecast, setForecast] = useState({});
@@ -93,6 +93,11 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>หน้าหลัก</title> {/* ตั้งชื่อเพจในแท็บของเบราว์เซอร์ */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+
       <h1 className="text-center text-2xl md:text-4xl font-bold py-4 px-4 text-white">
         Durian Epidemic Geospatial Report System
       </h1>
@@ -143,7 +148,7 @@ export default function Home() {
             {Object.entries(forecast).map(([date, forecasts], index) => (
               <div key={index} className="mb-6">
                 <h2 className="text-lg font-bold mb-2">{formatDate(date)}</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
                   {forecasts.map((item, idx) => (
                     <div
                       key={idx}
