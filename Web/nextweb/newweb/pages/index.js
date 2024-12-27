@@ -26,7 +26,7 @@ export default function Home() {
     "แพร่", "แม่ฮ่องสอน"
   ];
 
-  const API_KEY = "2cb03176968aecaa704e065154fc5db7"; //API Key
+  const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY; //API Key
 
   useEffect(() => {
     //Current weather data
