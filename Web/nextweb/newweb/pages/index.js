@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from 'next/head';
+
 export default function Home() {
   const [province, setProvince] = useState("กรุงเทพมหานคร");
   const [forecast, setForecast] = useState({});
@@ -26,10 +27,10 @@ export default function Home() {
     "แพร่", "แม่ฮ่องสอน"
   ];
 
-  const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY; //API Key
+  const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY; // API Key
 
   useEffect(() => {
-    //Current weather data
+    // Current weather data
     const fetchCurrentWeather = async () => {
       setLoadingCurrent(true);
       try {
@@ -44,7 +45,7 @@ export default function Home() {
       setLoadingCurrent(false);
     };
 
-    //5 Day / 3 Hour Forecast
+    // 5 Day / 3 Hour Forecast
     const fetchForecast = async () => {
       setLoading(true);
       try {
@@ -62,7 +63,7 @@ export default function Home() {
             return itemDate >= thailandTime && [0, 6, 12, 18].includes(hour);
           });
 
-          // จัดกลุ่มตามวันที่
+          // Group by date
           const groupedByDate = validForecast.reduce((acc, curr) => {
             const date = curr.dt_txt.split(" ")[0];
             if (!acc[date]) {
@@ -85,7 +86,7 @@ export default function Home() {
     fetchForecast();
   }, [province]);
 
-  //ปรับรูปแบบวันที่
+  // Format date
   const formatDate = (dateString) => {
     const [year, month, day] = dateString.split("-");
     return `${day}/${month}/${year}`;
@@ -94,7 +95,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>หน้าหลัก</title> {/* ตั้งชื่อเพจในแท็บของเบราว์เซอร์ */}
+        <title>หน้าหลัก</title> {/* Set page title */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
@@ -103,7 +104,7 @@ export default function Home() {
       </h1>
 
       <div className="py-5 px-2">
-        {/* Dropdown เลือกจังหวัด */}
+        {/* Dropdown to select province */}
         <div className="mb-4 flex justify-between items-center flex-col md:flex-row">
           <select
             value={province}
@@ -118,7 +119,7 @@ export default function Home() {
           </select>
         </div>
 
-        {/* สภาพอากาศขณะนี้ */}
+        {/* Current weather */}
         {loadingCurrent ? (
           <p className="text-center">กำลังโหลดข้อมูลสภาพอากาศขณะนี้...</p>
         ) : currentWeather ? (
@@ -128,17 +129,19 @@ export default function Home() {
             <p>🌡️ อุณหภูมิ: {currentWeather.main.temp} °C</p>
             <p>💧 ความชื้น: {currentWeather.main.humidity}%</p>
             <p>🌥️ สภาพอากาศ: {currentWeather.weather[0].description}</p>
-            <img
-              src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
-              alt={currentWeather.weather[0].description}
-              className="w-12 h-12 mx-auto"
-            />
+            <div className="flex justify-center items-center">
+              <img
+                src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
+                alt={currentWeather.weather[0].description}
+                className="w-12 h-12"
+              />
+            </div>
           </div>
         ) : (
           <p className="text-center">ไม่พบข้อมูลสภาพอากาศขณะนี้</p>
         )}
 
-        {/* พยากรณ์อากาศล่วงหน้า */}
+        {/* Weather forecast */}
         {loading ? (
           <p className="text-center">กำลังโหลดข้อมูลพยากรณ์อากาศ...</p>
         ) : Object.keys(forecast).length === 0 ? (
@@ -158,11 +161,15 @@ export default function Home() {
                       <p>🌡️ อุณหภูมิ: {item.main.temp} °C</p>
                       <p>💧 ความชื้น: {item.main.humidity}%</p>
                       <p>🌥️ สภาพอากาศ: {item.weather[0].description}</p>
-                      <img
-                        src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
-                        alt={item.weather[0].description}
-                        className="w-12 h-12"
-                      />
+
+                      {/* Center icon */}
+                      <div className="flex justify-center items-center">
+                        <img
+                          src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                          alt={item.weather[0].description}
+                          className="w-12 h-12"
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
